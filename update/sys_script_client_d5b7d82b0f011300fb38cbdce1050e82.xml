@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="sys_script_client">
+    <sys_script_client action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <applies_extended>false</applies_extended>
+        <condition/>
+        <description>Only display 'What needed' choices that match the 'Request Type' value.</description>
+        <field>u_request_type</field>
+        <global>true</global>
+        <messages/>
+        <name>NeedIt Request Type Options</name>
+        <order/>
+        <script><![CDATA[function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+	//If the new value is empty then do nothing
+    if (newValue == '') {
+       return;
+    }
+	
+	var wnName = 'u_what_needed';
+	var whatNeeded = g_form.getValue(wnName);	
+	
+	//Clear old options in order to set up new ones
+	g_form.clearOptions(wnName);
+
+	//Add Choice options based on the new value selected in 'Request Type' field
+	switch(newValue){
+		case 'hr':
+			g_form.addOption(wnName, 'hr1', 'Human Resources 1');
+			g_form.addOption(wnName, 'hr2', 'Human Resources 2');
+			break;
+		case 'facilities':
+			g_form.addOption(wnName, 'facilities1', 'Facilities 1');
+			g_form.addOption(wnName, 'facilities2', 'Facilities 2');
+			break;
+		case 'legal':
+			g_form.addOption(wnName, 'legal1', 'Legal 1');
+			g_form.addOption(wnName, 'legal2', 'Legal 2');
+			break;
+	}
+	//Always add an 'Other' option
+	g_form.addOption(wnName, 'other', 'Other');
+	
+	//If the form is loading and its not a new record then set 'What needed' to its value before it was loaded
+	if(isLoading && !g_form.isNewRecord()){
+		g_form.setValue(wnName, whatNeeded);
+	}
+}]]></script>
+        <sys_class_name>sys_script_client</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-03-30 14:26:42</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>d5b7d82b0f011300fb38cbdce1050e82</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>NeedIt Request Type Options</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="NeedIt" source="x_58872_needit">6ead8e780f603200cd674f8ce1050ed1</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="NeedIt">6ead8e780f603200cd674f8ce1050ed1</sys_scope>
+        <sys_update_name>sys_script_client_d5b7d82b0f011300fb38cbdce1050e82</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-03-30 14:26:42</sys_updated_on>
+        <table>x_58872_needit_needit</table>
+        <type>onChange</type>
+        <ui_type>10</ui_type>
+        <view/>
+    </sys_script_client>
+</record_update>
